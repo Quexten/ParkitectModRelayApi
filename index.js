@@ -8,7 +8,7 @@ function getTimeUpdated(id, callback) {
 }
 
 var express    = require('express');
-var app        = express();              
+var app        = express();
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,12 +20,12 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
 	if (req.baseUrl == "/getVersion") {
-		var time_updated = getTimeUpdated(req.query.item_id, function (time) {			
+		var time_updated = getTimeUpdated(req.query.item_id, function (time) {
 			res.json({ version: time });
 		})
 	}
 });
 
 app.use('/getVersion', router);
-
+console.log("listening on port:" + port)
 app.listen(port);
