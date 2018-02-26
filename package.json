@@ -8,9 +8,9 @@
     "start": "node index.js"
   },
   "author": {
-      "name": "Quexten",
-      "email": "mail@quexten.com",
-      "url": "https://github.com/quexten"
+    "name": "Quexten",
+    "email": "mail@quexten.com",
+    "url": "https://github.com/quexten"
   },
   "contributors": [
     {
@@ -20,7 +20,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "steam-workshop": "0.0.2",
-    "express": "4.16.0"
+    "express": "^4.16.2",
+    "steam-workshop": "0.0.2"
   }
 }
