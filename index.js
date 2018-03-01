@@ -19,7 +19,7 @@ const request = require('request');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = 80;
+var port = 8080;
 var router = express.Router();
 
 var downloads = []
@@ -66,6 +66,7 @@ router.get('/', function(req, res) {
 	}
 });
 
+app.use('/getVersion', router);
 app.use('/download', router)
 
 app.listen(port);
