@@ -67,6 +67,7 @@ router.get('/', function(req, res) {
 });
 
 app.use('/getVersion', router);
-app.use('/download', router)
+app.use('/download', router);
 
+console.log("port:" + port);
 app.listen(port);
