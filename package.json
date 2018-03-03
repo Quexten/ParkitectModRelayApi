@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.2",
+    "jsonfile": "^4.0.0",
     "steam-workshop": "0.0.2"
   },
   "contributors": [

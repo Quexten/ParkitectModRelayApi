@@ -22,13 +22,17 @@ app.use(bodyParser.json());
 var port = 8080;
 var router = express.Router();
 
+var jsonfile = require('jsonfile')
+
 var downloads = []
 
 router.get('/', function(req, res) {
 	var item_id = req.query.item_id
-	console.log("item_id" + item_id)
+	
+	console.log("Request item Id" + item_id)
+	
 	if (item_id == null || !(item_id == parseInt(item_id, 10))) {
-		res.json({ "error": "format" });
+	 	res.json({ "error": "format" });
 		return
 	}
 
@@ -47,27 +51,37 @@ router.get('/', function(req, res) {
 				res.json({ "error": "Wrong app_id" })
 				return
 			}
-			if (downloads.indexOf(item_id) >= 0 && downloads[item_id].time == time) {				
+			var contains_entry = downloads[item_id] !== void 0 
+			var version_matches = contains_entry && downloads[item_id].time == time
+
+			if (contains_entry && version_matches) {	
+				console.log("From cache")
 				res.json({ "download": downloads[item_id].download })
 			} else {		
+				console.log("Download")
 				request.get('http://parkitect-downloader/download?item_id=' + item_id, { json: true }, (err, downloadRes, body) => {
 					if (err == null) {
 						res.json({ "download": body.download })
 						downloads[item_id] = {
 							time: time,
 							download: body.download
-						}
+						}						
+						var file = '/workshop/data.json'
+						jsonfile.readFile(file, function(err, obj) {
+						  console.dir(obj)
+						})
 					} else {
 						res.json({ "error": body.error })
 					}
-				});
+				})
 			}
 		})
 	}
-});
+})
 
-app.use('/getVersion', router);
-app.use('/download', router);
+app.use('/getVersion', router)
+app.use('/download', router)
 
-console.log("port:" + port);
-app.listen(port);
+console.log("Api is now running on port:" + port)
+console.log("Press command + c go back to the command line")
+app.listen(port)
